@@ -1,3 +1,5 @@
+require File.join(File.dirname(__FILE__), '..', '..',
+                  'lib', 'validators', 'date_validator')
 require 'iconv'
 require 'fastercsv'
 
@@ -9,7 +11,8 @@ class GradeEntryForm < ActiveRecord::Base
   has_many                  :grade_entry_items, :dependent => :destroy
   has_many                  :grade_entry_students, :dependent => :destroy
   has_many                  :grades, :through => :grade_entry_items
-  validate                  :check_timezone
+  # Call DateValidator to validate :date attribute
+  validates                 :date, :date => true
 
   validates_presence_of     :short_identifier
   validates_uniqueness_of   :short_identifier, :case_sensitive => true
@@ -17,14 +20,6 @@ class GradeEntryForm < ActiveRecord::Base
   accepts_nested_attributes_for :grade_entry_items, :allow_destroy => true
 
   BLANK_MARK = ""
-
-  def check_timezone
-    # Check that the date is valid - the date is allowed to be in the past
-    if Time.zone.parse(date.to_s).nil?
-      errors.add :date, I18n.t('grade_entry_forms.invalid_date')
-      return false
-    end
-  end
 
   # The total number of marks for this grade entry form
   def out_of_total
