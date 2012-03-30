@@ -1,5 +1,4 @@
-require File.join(File.dirname(__FILE__), '..', '..',
-                  'lib', 'validators', 'date_validator')
+require 'date_validator'
 require 'csv_invalid_line_error'
 class Assignment < ActiveRecord::Base
 
@@ -71,7 +70,9 @@ class Assignment < ActiveRecord::Base
 
   before_save :reset_collection_time
   validate :minimum_number_of_groups
-  # Call DateValidator to validate :due_date attribute
+  # Call custom validator in order to validate the :due_date attribute
+  # :date => true maps to DateValidator (:custom_name => true maps to CustomNameValidator)
+  # Look in lib/validators/* for more info
   validates :due_date, :date => true
   after_save :update_assigned_tokens
 

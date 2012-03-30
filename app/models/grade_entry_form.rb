@@ -1,5 +1,4 @@
-require File.join(File.dirname(__FILE__), '..', '..',
-                  'lib', 'validators', 'date_validator')
+require 'date_validator'
 require 'iconv'
 require 'fastercsv'
 
@@ -11,7 +10,10 @@ class GradeEntryForm < ActiveRecord::Base
   has_many                  :grade_entry_items, :dependent => :destroy
   has_many                  :grade_entry_students, :dependent => :destroy
   has_many                  :grades, :through => :grade_entry_items
-  # Call DateValidator to validate :date attribute
+  
+  # Call custom validator in order to validate the date attribute
+  # :date => true maps to DateValidator (:custom_name => true maps to CustomNameValidator)
+  # Look in lib/validators/* for more info
   validates                 :date, :date => true
 
   validates_presence_of     :short_identifier

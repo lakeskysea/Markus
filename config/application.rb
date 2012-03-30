@@ -44,6 +44,7 @@ module Markus
                               app/controllers/api
                               lib
                               lib/classes
+                              lib/validators
                               )
   # Load any local configuration that is kept out of source control
   # (e.g. gems, patches).
