@@ -1,4 +1,3 @@
-require 'date_validator'
 require 'iconv'
 require 'fastercsv'
 
@@ -10,7 +9,7 @@ class GradeEntryForm < ActiveRecord::Base
   has_many                  :grade_entry_items, :dependent => :destroy
   has_many                  :grade_entry_students, :dependent => :destroy
   has_many                  :grades, :through => :grade_entry_items
-  
+
   # Call custom validator in order to validate the date attribute
   # :date => true maps to DateValidator (:custom_name => true maps to CustomNameValidator)
   # Look in lib/validators/* for more info

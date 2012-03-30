@@ -1,4 +1,3 @@
-require 'date_validator'
 require 'csv_invalid_line_error'
 class Assignment < ActiveRecord::Base
 
